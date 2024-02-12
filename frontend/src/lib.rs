@@ -1,5 +1,5 @@
 use leptos::*;
-
+use leptos_meta::{provide_meta_context, Stylesheet};
 #[cfg(feature = "ssr")]
 pub mod fallback;
 
@@ -10,6 +10,7 @@ pub async fn hello_world_server() -> Result<String, ServerFnError> {
 
 #[component]
 pub fn App() -> impl IntoView {
+	provide_meta_context();
 	let action = create_server_action::<HelloWorldServer>();
 	let vals = create_rw_signal(String::new());
 	create_effect(move |_| {
@@ -21,8 +22,10 @@ pub fn App() -> impl IntoView {
 		}
 	});
 	view! {
-		<button
+				<Stylesheet id="leptos" href="/pkg/leptos_tauri_from_scratch.css"/>
 
+		<button
+		class = "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
 		on:click=move |_| {
 			action.dispatch(HelloWorldServer{});
 		}

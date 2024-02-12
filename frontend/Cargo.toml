@@ -58,7 +58,8 @@ ssr = [
 [package.metadata.leptos]
 bin-exe-name = "leptos_tauri_from_scratch_bin"
 output-name = "leptos_tauri_from_scratch"
-assets-dir = "../public"
+assets-dir = "public"
+tailwind-input-file = "input.css"
 site-pkg-dir = "pkg"
 site-root = "target/site"
 site-addr = "0.0.0.0:3000"

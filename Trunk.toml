@@ -3,3 +3,12 @@ target = "./frontend/index.html"
 
 [watch]
 ignore = ["./src-tauri"]
+
+
+[[hooks]]
+stage = "pre_build"
+command = "sh"
+command_arguments = [
+  "-c",
+  "npx tailwindcss -i ./frontend/input.css -o ./frontend/styles/output.css",
+]
