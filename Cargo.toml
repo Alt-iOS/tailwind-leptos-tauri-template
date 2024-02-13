@@ -1,7 +1,28 @@
 [workspace]
 resolver = "2"
-members = ["src-tauri", "frontend"]
+members = ["src-tauri", "frontend", "server"]
 
 [profile.release]
 codegen-units = 1
 lto = true
+
+[[workspace.metadata.leptos]]
+# project name
+name = "leptos-project"
+bin-package = "frontend"
+lib-package = "frontend"
+bin-exe-name = "frontend_bin"
+output-name = "leptos_tauri"
+assets-dir = "public"
+tailwind-input-file = "input.css"
+site-pkg-dir = "pkg"
+site-root = "target/site"
+site-addr = "0.0.0.0:3000"
+reload-port = 3001
+browserquery = "defaults"
+watch = false
+env = "DEV"
+bin-features = ["ssr"]
+bin-default-features = false
+lib-features = ["hydrate"]
+lib-default-features = false

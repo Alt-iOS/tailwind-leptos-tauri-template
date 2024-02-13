@@ -1,15 +1,7 @@
 [package]
-name = "frontend"
+name = "server"
 version = "0.1.0"
 edition = "2021"
-
-
-[lib]
-crate-type = ["staticlib", "cdylib", "rlib"]
-
-[[bin]]
-name = "frontend_bin"
-path = "./src/main.rs"
 
 [dependencies]
 axum = { version = "0.7.0", optional = true }
@@ -18,9 +10,7 @@ cfg-if = "1.0.0"
 console_error_panic_hook = "0.1.7"
 console_log = "1.0.0"
 leptos = "0.6"
-leptos-use = "0.10"
 leptos_axum = { version = "0.6", optional = true }
-leptos_meta = "0.6"
 leptos_router = "0.6"
 log = "0.4.20"
 serde = "1.0.195"
@@ -38,37 +28,16 @@ simple_logger = "4"
 tracing = "0.1"
 tracing-subscriber = { version = "0.3", features = ["env-filter"] }
 tracing-subscriber-wasm = "0.1"
-server = { path = "../server" }
 
 [features]
-csr = ["leptos/csr", "leptos_meta/csr", "leptos_router/csr"]
-hydrate = ["leptos/hydrate", "leptos_meta/hydrate", "leptos_router/hydrate"]
+hydrate = ["leptos/hydrate", "leptos_router/hydrate"]
 ssr = [
   "dep:axum",
   "dep:axum-macros",
   "leptos/ssr",
-  "leptos-use/ssr",
   "dep:leptos_axum",
-  "leptos_meta/ssr",
   "leptos_router/ssr",
   "dep:tower-http",
   "dep:tower",
   "dep:tokio",
 ]
-
-#[package.metadata.leptos]
-#bin-exe-name = "frontend_bin"
-#output-name = "frontend"
-#assets-dir = "public"
-#tailwind-input-file = "input.css"
-#site-pkg-dir = "pkg"
-#site-root = "target/site"
-#site-addr = "0.0.0.0:3000"
-#reload-port = 3001
-#browserquery = "defaults"
-#watch = false
-#env = "DEV"
-#bin-features = ["ssr"]
-#bin-default-features = false
-#lib-features = ["hydrate"]
-#lib-default-features = false

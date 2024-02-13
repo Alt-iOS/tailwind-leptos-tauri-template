@@ -1490,6 +1490,35 @@ dependencies = [
 ]
 
 [[package]]
+name = "frontend"
+version = "0.1.0"
+dependencies = [
+ "axum",
+ "axum-macros",
+ "cfg-if",
+ "console_error_panic_hook",
+ "console_log",
+ "leptos",
+ "leptos-use",
+ "leptos_axum",
+ "leptos_meta",
+ "leptos_router",
+ "log",
+ "serde",
+ "serde_json",
+ "server",
+ "server_fn",
+ "simple_logger",
+ "tokio",
+ "tower",
+ "tower-http",
+ "tracing",
+ "tracing-subscriber",
+ "tracing-subscriber-wasm",
+ "wasm-bindgen",
+]
+
+[[package]]
 name = "futf"
 version = "0.1.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2920,34 +2949,6 @@ dependencies = [
  "server_fn",
  "thiserror",
  "tracing",
-]
-
-[[package]]
-name = "leptos_tauri_from_scratch"
-version = "0.1.0"
-dependencies = [
- "axum",
- "axum-macros",
- "cfg-if",
- "console_error_panic_hook",
- "console_log",
- "leptos",
- "leptos-use",
- "leptos_axum",
- "leptos_meta",
- "leptos_router",
- "log",
- "serde",
- "serde_json",
- "server_fn",
- "simple_logger",
- "tokio",
- "tower",
- "tower-http",
- "tracing",
- "tracing-subscriber",
- "tracing-subscriber-wasm",
- "wasm-bindgen",
 ]
 
 [[package]]
@@ -4482,6 +4483,32 @@ dependencies = [
  "proc-macro2",
  "quote",
  "syn 1.0.109",
+]
+
+[[package]]
+name = "server"
+version = "0.1.0"
+dependencies = [
+ "axum",
+ "axum-macros",
+ "cfg-if",
+ "console_error_panic_hook",
+ "console_log",
+ "leptos",
+ "leptos_axum",
+ "leptos_router",
+ "log",
+ "serde",
+ "serde_json",
+ "server_fn",
+ "simple_logger",
+ "tokio",
+ "tower",
+ "tower-http",
+ "tracing",
+ "tracing-subscriber",
+ "tracing-subscriber-wasm",
+ "wasm-bindgen",
 ]
 
 [[package]]

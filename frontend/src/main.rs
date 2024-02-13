@@ -12,7 +12,7 @@ cfg_if::cfg_if! {
 		};
 		use leptos::{*,provide_context, LeptosOptions};
 		use leptos_axum::LeptosRoutes;
-		use leptos_tauri_from_scratch::fallback::file_and_error_handler;
+		use frontend::fallback::file_and_error_handler;
 
 		#[derive(Clone,Debug,axum_macros::FromRef)]
 		pub struct ServerState{
@@ -44,7 +44,7 @@ cfg_if::cfg_if! {
 				move || {
 					provide_context("...");
 				},
-				leptos_tauri_from_scratch::App,
+				frontend::App,
 			);
 			handler(req).await.into_response()
 		}
@@ -54,17 +54,17 @@ cfg_if::cfg_if! {
 			use tracing::{info_span};
 			use tower_http::{trace::TraceLayer};
 			use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
-			let conf = get_configuration(Some("./frontend/Cargo.toml")).await.unwrap();
+			let conf = get_configuration(Some("./Cargo.toml")).await.unwrap();
 
 			let leptos_options = conf.leptos_options;
 			let addr = leptos_options.site_addr;
-			let routes =  leptos_axum::generate_route_list(leptos_tauri_from_scratch::App);
+			let routes =  leptos_axum::generate_route_list(frontend::App);
 			tracing_subscriber::registry()
 			.with(
 				tracing_subscriber::EnvFilter::try_from_default_env().unwrap_or_else(|_| {
 					// axum logs rejections from built-in extractors with the `axum::rejection`
 					// target, at `TRACE` level. `axum::rejection=trace` enables showing those events
-					"leptos_tauri_from_scratch=debug,tower_http=debug,axum::rejection=trace".into()
+					"frontend=debug,tower_http=debug,axum::rejection=trace".into()
 				}),
 			)
 			.with(tracing_subscriber::fmt::layer())
@@ -120,7 +120,7 @@ cfg_if::cfg_if! {
 		pub fn main() {
 				_ = console_log::init_with_level(log::Level::Debug);
 			server_fn::client::set_server_url("http://0.0.0.0:3000");
-			leptos::mount_to_body(leptos_tauri_from_scratch::App);
+			leptos::mount_to_body(frontend::App);
 		}
 	} else {
 		pub fn main() {
