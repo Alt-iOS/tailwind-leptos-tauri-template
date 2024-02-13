@@ -1,6 +1,6 @@
 [workspace]
 resolver = "2"
-members = ["src-tauri", "frontend", "server"]
+members = ["src-tauri", "frontend", "server", "app"]
 
 [profile.release]
 codegen-units = 1

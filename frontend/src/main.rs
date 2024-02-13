@@ -13,6 +13,7 @@ cfg_if::cfg_if! {
 		use leptos::{*,provide_context, LeptosOptions};
 		use leptos_axum::LeptosRoutes;
 		use frontend::fallback::file_and_error_handler;
+		use app::App;
 
 		#[derive(Clone,Debug,axum_macros::FromRef)]
 		pub struct ServerState{
@@ -44,7 +45,7 @@ cfg_if::cfg_if! {
 				move || {
 					provide_context("...");
 				},
-				frontend::App,
+				App,
 			);
 			handler(req).await.into_response()
 		}
@@ -58,7 +59,7 @@ cfg_if::cfg_if! {
 
 			let leptos_options = conf.leptos_options;
 			let addr = leptos_options.site_addr;
-			let routes =  leptos_axum::generate_route_list(frontend::App);
+			let routes =  leptos_axum::generate_route_list(App);
 			tracing_subscriber::registry()
 			.with(
 				tracing_subscriber::EnvFilter::try_from_default_env().unwrap_or_else(|_| {
@@ -118,9 +119,10 @@ cfg_if::cfg_if! {
 		}
 	} else if #[cfg(feature="csr")]{
 		pub fn main() {
+					use app::App;
 				_ = console_log::init_with_level(log::Level::Debug);
 			server_fn::client::set_server_url("http://0.0.0.0:3000");
-			leptos::mount_to_body(frontend::App);
+			leptos::mount_to_body(App);
 		}
 	} else {
 		pub fn main() {
