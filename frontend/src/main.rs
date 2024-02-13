@@ -1,3 +1,5 @@
+use tower_http::cors::Any;
+
 cfg_if::cfg_if! {
 	if #[cfg(feature="ssr")] {
 		use tower_http::cors::{CorsLayer};
@@ -80,6 +82,7 @@ cfg_if::cfg_if! {
 				.allow_methods([axum::http::Method::GET, axum::http::Method::POST])
 				.allow_origin("tauri://localhost".parse::<axum::http::HeaderValue>().unwrap())
 				.allow_origin("http://127.0.0.1:8080".parse::<axum::http::HeaderValue>().unwrap())
+				.allow_origin(Any)
 				.allow_headers(vec![axum::http::header::CONTENT_TYPE]);
 
 
@@ -100,11 +103,12 @@ cfg_if::cfg_if! {
 				// `Router` unless another extractor or middleware has removed it
 				request.uri().path().to_owned()
 			};
+
 					info_span!(
 						"http_request",
 						method = ?request.method(),
 						path,
-						some_other_field = tracing::field::Empty,
+						some_other_field =  tracing::field::Empty,
 					)
 				}))
 				.leptos_routes_with_handler(routes, get(leptos_routes_handler))
@@ -121,7 +125,7 @@ cfg_if::cfg_if! {
 		pub fn main() {
 					use app::App;
 				_ = console_log::init_with_level(log::Level::Debug);
-			server_fn::client::set_server_url("http://0.0.0.0:3000");
+			server_fn::client::set_server_url("http://127.0.0.1:3000");
 			leptos::mount_to_body(App);
 		}
 	} else {

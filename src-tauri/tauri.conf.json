@@ -5,7 +5,7 @@
   "build": {
     "beforeDevCommand": "trunk serve --no-default-features -v --features \"csr\"",
     "beforeBuildCommand": "trunk build --no-default-features -v --features \"csr\"",
-    "devUrl": "http://127.0.0.1:8080",
+    "devUrl": "http://localhost:8080",
     "frontendDist": "../dist"
   },
   "app": {
