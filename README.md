@@ -24,5 +24,5 @@ You can changge it in the distributionUrl and for compatibility [check](https://
 CORS policy disclaimer: 
 
 couldnt be bothered to fix simulators connection
-to machine so just put any, but delete that line and customize as you please
+to machine so ended up putting any, but delete that line and customize as you please
 Also from the initial commit to now android cant connect for some reason, who knows why as the fetch is never actually done. Does work on ios tho.
