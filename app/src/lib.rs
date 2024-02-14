@@ -22,7 +22,7 @@ pub fn App() -> impl IntoView {
 		on:click=move |_| {
 			action.dispatch(HelloWorldServer{});
 		}
-		>"Hello world."</button>
+		>"Hello world!"</button>
 		{
 			move || vals.get()
 		}

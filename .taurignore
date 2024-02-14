@@ -1,0 +1,3 @@
+# Ignore everything but the backend crate
+*
+!/src-tauri/*
