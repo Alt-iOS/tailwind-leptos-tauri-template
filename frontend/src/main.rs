@@ -12,7 +12,7 @@ cfg_if::cfg_if! {
 		};
 		use leptos::{*,provide_context, LeptosOptions};
 		use leptos_axum::LeptosRoutes;
-		use frontend::fallback::file_and_error_handler;
+		use server::fallback::file_and_error_handler;
 		use app::App;
 
 		use tower_http::cors::Any;

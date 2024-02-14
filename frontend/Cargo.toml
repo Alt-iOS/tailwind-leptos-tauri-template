@@ -18,9 +18,7 @@ cfg-if = "1.0.0"
 console_error_panic_hook = "0.1.7"
 console_log = "1.0.0"
 leptos = "0.6"
-leptos-use = "0.10"
 leptos_axum = { version = "0.6", optional = true }
-leptos_meta = "0.6"
 leptos_router = "0.6"
 log = "0.4.20"
 serde = "1.0.195"
@@ -43,17 +41,22 @@ app = { path = "../app" }
 
 
 [features]
-csr = ["leptos/csr", "leptos_meta/csr", "leptos_router/csr"]
-hydrate = ["leptos/hydrate", "leptos_meta/hydrate", "leptos_router/hydrate"]
+csr = ["leptos/csr", "leptos_router/csr", "app/csr"]
+hydrate = [
+  "leptos/hydrate",
+  "leptos_router/hydrate",
+  "app/hydrate",
+  "server/hydrate",
+]
 ssr = [
   "dep:axum",
   "dep:axum-macros",
   "leptos/ssr",
-  "leptos-use/ssr",
   "dep:leptos_axum",
-  "leptos_meta/ssr",
   "leptos_router/ssr",
   "dep:tower-http",
   "dep:tower",
   "dep:tokio",
+  "app/ssr",
+  "server/ssr",
 ]
