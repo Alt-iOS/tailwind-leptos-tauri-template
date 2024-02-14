@@ -1,5 +1,3 @@
-use tower_http::cors::Any;
-
 cfg_if::cfg_if! {
 	if #[cfg(feature="ssr")] {
 		use tower_http::cors::{CorsLayer};
@@ -17,6 +15,7 @@ cfg_if::cfg_if! {
 		use frontend::fallback::file_and_error_handler;
 		use app::App;
 
+		use tower_http::cors::Any;
 		#[derive(Clone,Debug,axum_macros::FromRef)]
 		pub struct ServerState{
 			pub options:LeptosOptions,
