@@ -2,4 +2,4 @@
 frontend/dist
 dist
 .vscode
-src-tauri/gen
+src-tauri/gen/
