@@ -1,6 +1,3 @@
-#[cfg(feature = "ssr")]
-pub mod fallback;
-
 cfg_if::cfg_if! {
 	if #[cfg(feature = "hydrate")] {
 		use app::App;
