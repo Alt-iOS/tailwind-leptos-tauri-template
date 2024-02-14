@@ -16,9 +16,13 @@ This project differs as it:
 - Separated the app module from the frontend crate
 
 Mobile dev:
-iOS requires a mac and XCode
-Android is setup to use gradle 8.5 and jvm 21 but by default tauri uses 8.0
+```cargo tauri android init && cargo tauri ios init```
+- iOS requires a mac and XCode
+- Android requires JVM 17 or modifying the gradle version. 
 You can changge it in the distributionUrl and for compatibility [check](https://docs.gradle.org/current/userguide/compatibility.html)
 
-CORS policy disclaimer: couldnt be bothered to fix simulators connection
+CORS policy disclaimer: 
+
+couldnt be bothered to fix simulators connection
 to machine so just put any, but delete that line and customize as you please
+Also from the initial commit to now android cant connect for some reason, who knows why as the fetch is never actually done. Does work on ios tho.
