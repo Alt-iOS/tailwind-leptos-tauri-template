@@ -1,5 +1,5 @@
 /target
 frontend/dist
-frontend/dist
 dist
 .vscode
+src-tauri/gen
