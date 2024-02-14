@@ -28,5 +28,5 @@ ssr = [
   "leptos-use/ssr",
   "leptos_meta/ssr",
   "leptos_router/ssr",
-  "server/hydrate",
+  "server/ssr",
 ]
