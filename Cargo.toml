@@ -5,6 +5,11 @@ members = ["src-tauri", "frontend", "server", "app"]
 [profile.release]
 codegen-units = 1
 lto = true
+[profile.dev]
+opt-level = 1
+
+[profile.dev.package."*"]
+opt-level = 3
 
 [[workspace.metadata.leptos]]
 # project name
