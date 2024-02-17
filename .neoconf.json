@@ -1,6 +1,9 @@
 {
   "lspconfig": {
     "rust_analyzer": {
+      "rust-analyzer.server.extraEnv": {
+        "CARGO_TARGET_DIR": "target-ra"
+      },
       "rust-analyzer.rustfmt.overrideCommand": [
         "leptosfmt",
         "--stdin",
