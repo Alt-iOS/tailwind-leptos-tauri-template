@@ -1,8 +1,6 @@
 #[cfg(feature = "ssr")]
 #[tokio::main]
 async fn main() {
-	use std::net::SocketAddr;
-
 	use app::App;
 	use axum::{
 		body::Body,
