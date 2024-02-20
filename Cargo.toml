@@ -5,7 +5,9 @@ members = ["src-tauri", "frontend", "server", "app"]
 [profile.release]
 codegen-units = 1
 lto = true
+
 [profile.dev]
+lto = true
 opt-level = 1
 
 [profile.dev.package."*"]

@@ -90,17 +90,10 @@ async fn main() {
 				request.uri().path().to_owned()
 			};
 
-			let ip_address = request
-				.extensions()
-				.get::<SocketAddr>()
-				.map(|addrs| addrs.ip().to_string())
-				.unwrap_or_else(|| "unknown".to_string());
-
 			info_span!(
 			"http_request",
 			method = ?request.method(),
 			path,
-			ip_address = ip_address.as_str(),
 			)
 		}))
 		.leptos_routes_with_handler(routes, get(leptos_routes_handler))
@@ -109,7 +102,7 @@ async fn main() {
 
 	let listener = tokio::net::TcpListener::bind(&addr).await.unwrap();
 	logging::log!("listening on http://{}", &addr);
-	axum::serve(listener, app.into_make_service_with_connect_info::<SocketAddr>()).await.unwrap();
+	axum::serve(listener, app.into_make_service()).await.unwrap();
 }
 
 #[cfg(not(feature = "ssr"))]
