@@ -1,6 +1,8 @@
 #[cfg(feature = "ssr")]
 #[tokio::main]
 async fn main() {
+	use std::net::SocketAddr;
+
 	use app::App;
 	use axum::{
 		body::Body,
@@ -87,11 +89,16 @@ async fn main() {
 			} else {
 				request.uri().path().to_owned()
 			};
+			let remote_addr = request
+				.extensions()
+				.get::<axum::extract::ConnectInfo<std::net::SocketAddr>>()
+				.map(|ci| ci.0);
 
 			info_span!(
 			"http_request",
 			method = ?request.method(),
 			path,
+			remote_addr = ?remote_addr,
 			)
 		}))
 		.leptos_routes_with_handler(routes, get(leptos_routes_handler))
@@ -100,7 +107,7 @@ async fn main() {
 
 	let listener = tokio::net::TcpListener::bind(&addr).await.unwrap();
 	logging::log!("listening on http://{}", &addr);
-	axum::serve(listener, app.into_make_service()).await.unwrap();
+	axum::serve(listener, app.into_make_service_with_connect_info::<SocketAddr>()).await.unwrap();
 }
 
 #[cfg(not(feature = "ssr"))]
