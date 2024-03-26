@@ -4,15 +4,8 @@ async fn main() {
 	use std::net::SocketAddr;
 
 	use app::App;
-	use axum::{
-		body::Body,
-		extract::{OriginalUri, State},
-		http::Request,
-		response::IntoResponse,
-		routing::get,
-		Router,
-	};
-	use leptos::{provide_context, leptos_config, *};
+	use axum::{extract::OriginalUri, http::Request, Router};
+	use leptos::*;
 	use leptos_axum::LeptosRoutes;
 	use server::fallback::file_and_error_handler;
 	use tower_http::{
@@ -26,34 +19,6 @@ async fn main() {
 	pub struct ServerState {
 		pub options: LeptosOptions,
 		pub routes: Vec<leptos_router::RouteListing>,
-	}
-	pub async fn server_fn_handler(
-		State(state): State<ServerState>,
-		request: Request<Body>,
-	) -> impl IntoResponse {
-		leptos_axum::handle_server_fns_with_context(
-			move || {
-				provide_context(state.clone());
-			},
-			request,
-		)
-		.await
-		.into_response()
-	}
-
-	pub async fn leptos_routes_handler(
-		State(state): State<ServerState>,
-		req: Request<Body>,
-	) -> axum::response::Response {
-		let handler = leptos_axum::render_route_with_context(
-			state.options.clone(),
-			state.routes.clone(),
-			move || {
-				provide_context("...");
-			},
-			App,
-		);
-		handler(req).await.into_response()
 	}
 
 	let conf = get_configuration(Some("./Cargo.toml")).await.unwrap();
@@ -75,12 +40,12 @@ async fn main() {
 	let cors = CorsLayer::new()
 		.allow_methods([axum::http::Method::GET, axum::http::Method::POST])
 		.allow_origin("tauri://localhost".parse::<axum::http::HeaderValue>().unwrap())
-		.allow_origin("http://127.0.0.1:8080".parse::<axum::http::HeaderValue>().unwrap())
+		.allow_origin("http://127.0.0.1:80".parse::<axum::http::HeaderValue>().unwrap())
 		.allow_origin(Any)
 		.allow_headers(vec![axum::http::header::CONTENT_TYPE]);
 
 	let app = Router::new()
-		.route("/api/*fn_name", get(server_fn_handler).post(server_fn_handler))
+		.leptos_routes(&state, routes, app::App)
 		.layer(cors)
 		.layer(TraceLayer::new_for_http().make_span_with(|request: &Request<_>| {
 			let path = if let Some(path) = request.extensions().get::<OriginalUri>() {
@@ -100,7 +65,6 @@ async fn main() {
 			remote_addr = ?remote_addr,
 			)
 		}))
-		.leptos_routes_with_handler(routes, get(leptos_routes_handler))
 		.fallback(file_and_error_handler)
 		.with_state(state);
 

@@ -1,4 +1,9 @@
 {
-  "rust-analyzer.rust.analyzerTargetDir": true,
-  "rust-analyzer.rustfmt.overrideCommand": ["leptosfmt", "--stdin", "--rustfmt"]
+  "rust-analyzer.cargo.targetDir": true,
+  "rust-analyzer.rustfmt.overrideCommand": [
+    "leptosfmt",
+    "--stdin",
+    "--rustfmt"
+  ],
+  "rust-analyzer.checkOnSave": true
 }

@@ -22,8 +22,6 @@ bin-exe-name = "frontend_bin"
 output-name = "leptos_tauri"
 assets-dir = "public"
 tailwind-input-file = "input.css"
-# without the style-file opt leptos watch gives and error 
-style-file = "ignore.css"
 site-pkg-dir = "pkg"
 site-root = "target/site"
 site-addr = "127.0.0.1:8000"
