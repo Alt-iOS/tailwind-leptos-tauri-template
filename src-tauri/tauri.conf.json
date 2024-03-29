@@ -1,5 +1,5 @@
 {
-  "productName": "leptos_tauri_app",
+  "productName": "{{project-name}}_app",
   "version": "0.1.0",
   "identifier": "com.tauri.dev0",
   "build": {

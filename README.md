@@ -2,7 +2,7 @@
 
 Simple template to use csr and ssr leptos with tauri for ios/android/windows/macos/linux and web dev
 
-Just clone the repo and start your project with the template.
+Just use cargo generate with this repo.
 To test everything is working, run `cargo tauri dev` and 'cargo leptos watch' to see the app in the browser and app.
 
 Thanks to the leptos and tauri teams for the amazing work.
@@ -16,13 +16,12 @@ This project differs as it:
 - Separated the app module from the frontend crate
 
 Mobile dev:
-```cargo tauri android init && cargo tauri ios init```
+`cargo tauri android init && cargo tauri ios init`
+
 - iOS requires a mac and XCode
-- Android requires JVM 17 or modifying the gradle version. 
-You can changge it in the distributionUrl and for compatibility [check](https://docs.gradle.org/current/userguide/compatibility.html)
+- Android requires JVM 17 or modifying the gradle version.
+  You can changge it in the distributionUrl and for compatibility [check](https://docs.gradle.org/current/userguide/compatibility.html)
 
-CORS policy disclaimer: 
+Android emulator issue:
 
-couldnt be bothered to fix simulators connection
-to machine so ended up putting any, but delete that line and customize as you please
-Also from the initial commit to now android cant connect for some reason, who knows why as the fetch is never actually done. Does work on ios tho.
+From the initial commit to now android cant connect for some reason, who knows why as the fetch is never actually done. Does work on ios tho.
