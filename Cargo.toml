@@ -1,6 +1,6 @@
 [workspace]
 resolver = "2"
-members = ["src-tauri", "frontend", "server", "app"]
+members = ["src-tauri", "frontend", "backend", "app"]
 
 [profile.release]
 codegen-units = 1
@@ -15,7 +15,7 @@ opt-level = 3
 
 [[workspace.metadata.leptos]]
 # project name
-name = "leptos-project"
+name = "{{project-name}}"
 bin-package = "frontend"
 lib-package = "frontend"
 bin-exe-name = "frontend_bin"

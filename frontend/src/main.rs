@@ -5,9 +5,9 @@ async fn main() {
 
 	use app::App;
 	use axum::{extract::OriginalUri, http::Request, Router};
+	use backend::fallback::file_and_error_handler;
 	use leptos::*;
 	use leptos_axum::LeptosRoutes;
-	use server::fallback::file_and_error_handler;
 	use tower_http::{
 		cors::{Any, CorsLayer},
 		trace::TraceLayer,

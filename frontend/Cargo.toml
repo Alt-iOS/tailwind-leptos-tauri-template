@@ -12,6 +12,7 @@ name = "frontend_bin"
 path = "./src/main.rs"
 
 [dependencies]
+backend = { path = "../backend" }
 axum = { version = "0.7.0", optional = true }
 axum-macros = { version = "0.4.1", optional = true }
 cfg-if = "1.0.0"
@@ -36,7 +37,6 @@ simple_logger = "4"
 tracing = "0.1"
 tracing-subscriber = { version = "0.3", features = ["env-filter"] }
 tracing-subscriber-wasm = "0.1"
-server = { path = "../server" }
 app = { path = "../app" }
 
 
@@ -46,7 +46,7 @@ hydrate = [
   "leptos/hydrate",
   "leptos_router/hydrate",
   "app/hydrate",
-  "server/hydrate",
+  "backend/hydrate",
 ]
 ssr = [
   "dep:axum",
@@ -58,5 +58,5 @@ ssr = [
   "dep:tower",
   "dep:tokio",
   "app/ssr",
-  "server/ssr",
+  "backend/ssr",
 ]

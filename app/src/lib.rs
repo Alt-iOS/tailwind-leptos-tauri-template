@@ -1,6 +1,6 @@
+use backend::*;
 use leptos::*;
 use leptos_meta::{provide_meta_context, Stylesheet};
-use server::*;
 
 #[component]
 pub fn App() -> impl IntoView {
@@ -16,12 +16,12 @@ pub fn App() -> impl IntoView {
 		}
 	});
 	view! {
-		<Stylesheet id="leptos" href="/pkg/{{project-name}}.css"/>
+		<Stylesheet id={"leptos"} href={"/pkg/{{project-name}}.css"}/>
 		<button
-			class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-			on:click=move |_| {
+			class={"bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"}
+			on:click={move |_| {
 				action.dispatch(HelloWorldServer {});
-			}
+			}}
 		>
 
 			"Hello world!"
