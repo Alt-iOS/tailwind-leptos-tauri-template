@@ -1,6 +1,6 @@
 [workspace]
 resolver = "2"
-members = ["src-tauri", "frontend", "backend", "app"]
+members = ["src-tauri", "frontend", "backend", "app", "server"]
 
 [profile.release]
 codegen-units = 1
@@ -16,9 +16,8 @@ opt-level = 3
 [[workspace.metadata.leptos]]
 # project name
 name = "{{project-name}}"
-bin-package = "frontend"
+bin-package = "server"
 lib-package = "frontend"
-bin-exe-name = "frontend_bin"
 output-name = "{{project-name}}"
 assets-dir = "public"
 tailwind-input-file = "input.css"
@@ -29,7 +28,7 @@ reload-port = 8001
 browserquery = "defaults"
 watch = false
 env = "DEV"
-bin-features = ["ssr"]
+bin-features = []
 bin-default-features = false
 lib-features = ["hydrate"]
 lib-default-features = false

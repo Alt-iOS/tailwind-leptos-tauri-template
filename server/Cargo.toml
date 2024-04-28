@@ -1,0 +1,18 @@
+[package]
+name = "server"
+version = "0.1.0"
+edition = "2021"
+
+
+[dependencies]
+tokio = { version = "1.35.1", features = ["rt-multi-thread"] }
+backend = { path = "../backend", features = ["ssr"] }
+axum = { version = "0.7.0" }
+axum-macros = { version = "0.4.1" }
+leptos = "0.6"
+leptos_axum = { version = "0.6" }
+leptos_router = "0.6"
+tower-http = { version = "0.5.1", features = ["fs", "cors", "trace"] }
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+app = { path = "../app", features = ["ssr"] }
