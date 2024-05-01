@@ -1,15 +1,16 @@
-use std::net::SocketAddr;
-
+use crate::tracing_setup::*;
 use app::App;
 use axum::{extract::OriginalUri, http::Request, Router};
 use backend::fallback::file_and_error_handler;
 use leptos::*;
 use leptos_axum::LeptosRoutes;
+use std::net::SocketAddr;
 use tower_http::{
 	cors::{Any, CorsLayer},
 	trace::TraceLayer,
 };
 use tracing::info_span;
+use tracing_opentelemetry::{MetricsLayer, OpenTelemetryLayer};
 use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
 
 #[derive(Clone, Debug, axum_macros::FromRef)]
@@ -17,22 +18,25 @@ pub struct ServerState {
 	pub options: LeptosOptions,
 	pub routes: Vec<leptos_router::RouteListing>,
 }
+pub mod tracing_setup;
 
 #[tokio::main]
 async fn main() {
 	let conf = get_configuration(Some("./Cargo.toml")).await.unwrap();
-
 	let leptos_options = conf.leptos_options;
 	let addr = leptos_options.site_addr;
+
+	let meter_provider = init_meter_provider();
 	let routes = leptos_axum::generate_route_list(App);
 	tracing_subscriber::registry()
 		.with(tracing_subscriber::EnvFilter::try_from_default_env().unwrap_or_else(|_| {
-			// axum logs rejections from built-in extractors with the `axum::rejection`
-			// target, at `TRACE` level. `axum::rejection=trace` enables showing those events
-			"server=debug,tower_http=debug,axum::rejection=trace".into()
+			"app=debug,frontend=debug,backend=debug,server=debug,tower_http=debug,axum::rejection=trace".into()
 		}))
+		.with(MetricsLayer::new(meter_provider.clone()))
+		.with(OpenTelemetryLayer::new(init_tracer()))
 		.with(tracing_subscriber::fmt::layer())
 		.init();
+	OtelGuard { meter_provider };
 
 	let state = ServerState { options: leptos_options, routes: routes.clone() };
 
@@ -71,4 +75,3 @@ async fn main() {
 	logging::log!("listening on http://{}", &addr);
 	axum::serve(listener, app.into_make_service_with_connect_info::<SocketAddr>()).await.unwrap();
 }
-
