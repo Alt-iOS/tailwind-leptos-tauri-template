@@ -31,6 +31,7 @@ pub fn init_meter_provider() -> SdkMeterProvider {
 	let exporter = opentelemetry_otlp::new_exporter()
 		.tonic()
 		.with_endpoint("http://localhost:4317")
+		.with_timeout(std::time::Duration::from_secs(2))
 		.build_metrics_exporter(
 			Box::new(DefaultAggregationSelector::new()),
 			Box::new(DefaultTemporalitySelector::new()),
@@ -69,7 +70,10 @@ pub fn init_tracer() -> Tracer {
 		)
 		.with_batch_config(BatchConfig::default())
 		.with_exporter(
-			opentelemetry_otlp::new_exporter().tonic().with_endpoint("http://localhost:4317"),
+			opentelemetry_otlp::new_exporter()
+				.tonic()
+				.with_endpoint("http://localhost:4317")
+				.with_timeout(std::time::Duration::from_secs(2)),
 		)
 		.install_batch(runtime::Tokio)
 		.unwrap()

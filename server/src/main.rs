@@ -36,7 +36,7 @@ async fn main() {
 		.with(OpenTelemetryLayer::new(init_tracer()))
 		.with(tracing_subscriber::fmt::layer())
 		.init();
-	OtelGuard { meter_provider };
+	//OtelGuard { meter_provider };
 
 	let state = ServerState { options: leptos_options, routes: routes.clone() };
 
