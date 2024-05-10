@@ -3,10 +3,10 @@
   "version": "0.1.0",
   "identifier": "com.tauri.dev0",
   "build": {
-    "beforeDevCommand": "trunk serve --no-default-features -v --features \"csr\"",
-    "beforeBuildCommand": "trunk build --no-default-features -v --features \"csr\"",
-    "devUrl": "http://localhost:8080",
-    "frontendDist": "../dist"
+    "beforeDevCommand": "cargo leptos watch",
+    "beforeBuildCommand": "cargo leptos build",
+    "devUrl": "http://localhost:8000",
+    "frontendDist": "../target/site/pkg/"
   },
   "app": {
     "security": {
